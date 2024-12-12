@@ -4,7 +4,8 @@ def HistorianHysteria(): Unit = {
   // val fileName = "testData.txt"
   val fileName = "data.txt"
   val (listA, listB) = _parseData(fileName)
-  PartOne(listA, listB);
+  PartOne(listA, listB)
+  PartTwo(listA, listB)
 }
 
 def _parseData(fileName: String): (Array[Int], Array[Int]) = {
@@ -32,4 +33,18 @@ def PartOne(listA: Array[Int], listB: Array[Int]): Unit = {
   }
 
   printf("Result of part one: %d\n", result.sum)
+}
+
+def PartTwo(listA: Array[Int], listB: Array[Int]): Unit = {
+  var mapA = Map[Int, Int]()
+
+  for (i <- 0 to listA.length - 1) {
+    val curr = listA(i)
+    if (!mapA.contains(curr)) {
+      mapA += (curr -> 0)
+    }
+    mapA += (curr -> (mapA(curr) + listB.filter(_ == curr).length * curr))
+  }
+
+  printf("Result of part two: %d\n", mapA.values.sum)
 }
